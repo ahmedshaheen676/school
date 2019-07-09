@@ -1,0 +1,32 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:classappend": {},
+        "th:datetime": {},
+        "th:text": {},
+        "th:object": {},
+        "th:onclick": {},
+        "th:action": {},
+        "th:fragment": {
+            "context": "div"
+        },
+        "th:each": {},
+        "th:inline": {},
+        "th:if": {},
+        "th:id": {},
+        "text-right": {},
+        "th:checked": {},
+        "th:src": {
+            "context": "script"
+        },
+        "sec:authorize": {},
+        "th:replace": {},
+        "th:data": {},
+        "th:href": {
+            "context": "link"
+        },
+        "th:value": {},
+        "th:selected": {},
+        "th:with": {}
+    }
+}

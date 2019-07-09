@@ -1,0 +1,56 @@
+<html lang="en">
+    <head th:replace="common/header :: common-header" />
+
+    <body>
+
+        <div th:replace="common/header :: navbar" ></div>
+        <div class="container">
+            <div class="table-responsive">
+                <table id="itemListTable" class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th><input th:id="selectAllItems" type="checkbox" /></th>
+                            <th>name</th>
+                            <th>company</th>
+                            <th>category</th>
+                            <th>in stock number</th>
+                            <th>shipping weight</th>
+                            <th>list price</th>
+                            <th>our price</th>
+                            <th>active ?</th>
+                            <th>publication date</th>
+                            <th>operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-th-each="item : ${itemList}">
+                            <td>
+                                <input hidden="hidden" name="id" th:value="item.id" />
+                            </td>
+                            <td ><a th:href="@{/item/itemInfo(id=${item.id})}"><span th:text="${item.name}"></span></a></td>
+                            <td th:text="${item.company}"></td>
+                            <td th:text="${item.category}"></td>
+                            <td th:text="${item.inStockNumber}"></td>
+                            <td th:text="${item.shippingWeight}"></td>
+                            <td th:text="${item.listPrice}"></td>
+                            <td th:text="${item.ourPrice}"></td>
+                            <td th:text="${item.active}"></td>
+                            <td th:text="${item.publicationDate}"></td>
+                            <td>delete</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div th:replace="common/header :: body-bottom-scripts" />
+        <script>
+            $(document).ready(function () {
+                $("#itemListTable").DataTable({
+                    "ordering": true,
+                    stateSave: true});
+            });
+        </script>
+    </body>
+</html>

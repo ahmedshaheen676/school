@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <!--<head th:replace="common/header :: common-header" />-->
+    <head th:replace="common/header :: common-header" >
+        <title>الصفحه المطلوبة غير موجودة</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    </head>
+
+    <body style="background-color:#ecf0f5;">
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="error-page">
+
+
+                <h2 class="headline text-yellow  pull-right"> 404</h2>
+
+
+                <div class="col-lg-12">
+                    <div class="error-content text-right">
+                        <h3 class="text-yellow"><i class="fa fa-warning text-yellow"></i>. خطأ ؛ الصفحة غير موجودة</h3>
+
+                        <p>
+                            لم نستطع الوصول للصفحة التي تبحث عنها,  
+                            يمكنك الرجوع الي <a th:href="@{/}"><b>الصحفة الرئيسيه</b></a>
+                        </p>
+                        <p>
+                            . او اختر للبحث عن وجهتك
+                        </p>
+
+                        <form class="search-form">
+                            <div class="input-group ">
+                                <div class="input-group-btn ">
+                                    <button type="submit" name="submit" class="btn btn-warning btn-flat "><i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div >
+                                    <input type="text" name="search" class="form-control text-right" placeholder="... ابحث هنا">
+                                </div>
+
+                            </div>
+                            <!-- /.input-group -->
+                        </form>
+                    </div>
+                </div>
+
+                <!-- /.error-content -->
+            </div>
+            <!-- /.error-page -->
+        </section>
+
+    </body>
+</html>

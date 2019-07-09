@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!--<head th:replace="common/header :: common-header" />-->
+    <head th:replace="common/header :: common-header" />
+
+    <!--     <body class="sidebar-mini wysihtml5-supported skin-blue-light">-->
+    <body class="hold-transition login-page">
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}" ></div>
+        <div class="login-box">
+            <div class="login-logo">
+                <a th:href="@{/}"><b>مدرسة محمود الشناوي بالحميدية</b></a>
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">
+                    <b>
+                        بالرجاء تسجيل الدخول
+                    </b>
+                </p>
+
+                <form class="form-signin" th:action="@{/login}" method="post">
+                    <div class="form-group has-feedback">
+                        <input type="text" 
+                               class="form-control text-center"
+                               autofocus="autofocus"
+                               name="username" 
+                               id="username" 
+                               th:value="${user.username}"
+                               placeholder="اسم المستخدم"
+                               required="required" >
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control text-center"
+                               name="password" 
+                               id="password"
+                               th:value="${user.password}"
+                               required="required" 
+                               placeholder="كلمة المرور">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox"> تذكرني
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">تسجيل الدخول</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a th:href="@{/forgetPassword}" class="text-right">
+                            <b>
+                                نسيت كلمة المرور
+                            </b>
+                        </a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a th:href="@{/newUser}" class="pull-right">
+                            <b>
+                                مستخدم جديد
+                            </b>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
+        <!-- ./wrapper -->
+
+        
+
+
+        <div th:replace="common/header :: body-bottom-scripts" ></div>
+        <script>
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' /* optional */
+                });
+            });
+        </script>
+<!--        <script th:inline="javascript">
+            $(document).ready(function () {
+                var notification = /*[[${notification}]]*/ "";
+                var action = /*[[${action}]]*/ "";
+                if (action === 'save') {
+                    new PNotify({
+                        title: 'Save contractor',
+                        text: notification,
+                        type: 'success',
+                        styling: 'bootstrap3',
+                        delay: 3000
+                    });
+                } else if (action === 'remove') {
+                    new PNotify({
+                        title: 'Remove contractor',
+                        text: notification,
+                        type: 'success',
+                        styling: 'bootstrap3',
+                        delay: 3000
+                    });
+                } else if (action === 'update') {
+                    new PNotify({
+                        title: 'Edit contractor',
+                        text: notification,
+                        type: 'success',
+                        styling: 'bootstrap3',
+                        delay: 3000
+                    });
+                }
+            });
+        </script>-->
+
+    </body>
+</html>

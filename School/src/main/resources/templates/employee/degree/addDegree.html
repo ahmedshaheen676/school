@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" >
+
+    <head th:replace="common/header :: common-header" />
+    <body class="sidebar-mini wysihtml5-supported skin-blue-light">
+        <div class="wrapper rtl">
+            <header class="main-header">
+                <div th:replace="common/header :: navbar"></div>
+            </header>
+            <!--Left side column. contains the logo and sidebar--> 
+            <div th:replace="common/mainSidebar :: sidebar"></div>
+
+            <!-- ./wrapper 
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" >
+                <!-- Main content -->
+                <section class="content"> 
+                    <div class="box box-primary">
+                        <div class="box-header with-border text-right">
+                            <h1 class="box-title" >إضافة درجة وظيفية</h1>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <input hidden="hiddin" name="id" th:value="${degree.id}">
+                        <form  th:action="@{/Degree/addDegree}" method="post"
+                               enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="form-group text-right">
+                                    <label for="degreeName" text-right>عنوان الدرجة</label>
+                                    <input type="text" class="form-control text-right" 
+                                           id="title" placeholder="عنوان الدرجة"
+                                           name="degreeName"
+                                           th:value="${degree.degreeName}"required="required">
+                                </div>
+                                <div class="box-footer pull-right">
+                                    <button type="submit" class="btn btn-primary">إضافة الدرجة</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </section>
+
+            </div>
+
+
+
+            <div th:replace="common/footer :: footer"></div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+        <div th:replace="common/header :: body-bottom-scripts" > </div>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#newsImage')
+                                .attr('src', e.target.result)
+                                .width(150)
+                                .height(100);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+        <!-- CK Editor -->
+        <script th:src="@{/js/ckeditor.js}"></script>
+        <script>
+            $(function () {
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace('discription');
+                //bootstrap WYSIHTML5 - text editor
+//    $('.textarea').wysihtml5()
+            });
+
+        </script>
+
+
+
+
+    </body>
+</html>

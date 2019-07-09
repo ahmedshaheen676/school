@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!--<head th:replace="common/header :: common-header" />-->
+    <head th:replace="common/header :: common-header" />
+
+
+    <!--     <body class="sidebar-mini wysihtml5-supported skin-blue-light">-->
+    <body class="sidebar-mini-expand-feature wysihtml5-supported skin-blue-light">
+        <div class="wrapper rtl">
+            <header class="main-header">
+                <div th:replace="common/header :: navbar"></div>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <div th:replace="common/mainSidebar :: sidebar"></div>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" >
+                <!-- Main content -->
+                <section class="content"> 
+
+                    <!-- form start -->
+                    <form  th:action="@{/Student/addStudent}" method="post"
+                           enctype="multipart/form-data">
+                        <div class="form-horizontal">
+                            <div class="box box-primary">
+
+                                <div class="box-header with-border">
+                                    <h4 class=" text-blue pull-right text-bold">تسجيل بيانات طالب</h4>
+                                    <div class="pull-left">
+                                        <a th:href="@{/Student/}"> 
+                                            <span class="fa fa-arrow-left"></span>
+                                            عوده
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="box-body"> 
+                                    <div class="row ">
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="name" class="text-right text-blue control-label">اسم الطالب</label>
+
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group pull-left text-right ">
+                                                    <input type="text" class="form-control text-right" 
+                                                           id="name" placeholder="اسم الطالب"
+                                                           name="name"
+                                                           oninvalid="this.setCustomValidity('من فضلك ادخل اسم الطالب كاملا')"
+                                                           oninput="setCustomValidity('')"
+                                                           th:value="${student.name}"
+                                                           required="required">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-user text-blue"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="bg-danger text-right text-red" th:if="${nameExists}">
+                                                    <span>خطأ ! هذا الطالب مسجل من قبل </span>
+                                                </div>
+                                                <div class="bg-danger text-right text-red" th:if="${nameError}">
+                                                    <span>خطأ ! هناك خطأ في اسم الطالب </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="address" class="text-right text-blue control-label">العنوان</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group pull-left text-right ">
+                                                    <input type="text" class="form-control text-right" 
+                                                           id="address" placeholder="العنوان"
+                                                           name="address"
+                                                           oninvalid="this.setCustomValidity('من فضلك ادخل عنوان الطالب')"
+                                                           oninput="setCustomValidity('')"
+                                                           th:value="${student.address}"
+                                                           required="required">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-user text-blue"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="bg-danger text-right" th:if="${addressError}">
+                                                    <span>خطأ ! هناك خطأ في عنوان الطالب </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="gender" class="text-right text-blue control-label">النوع</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group pull-left text-right ">
+                                                    <select th:value="${student.gender}" id="gender" name="gender"
+                                                            class="form-control select2 text-center">
+                                                        <option value="MALE"
+                                                                th:selected="(${gender}=='gender.MALE')">ذكر</option>
+                                                        <option value="FEMALE"
+                                                                th:selected="(${gender}=='gender.FEMALE')">أنثي</option>
+                                                    </select>
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-male text-blue"></i>
+                                                    </div>
+
+                                                </div>
+                                                <div class="bg-danger text-right" th:if="${genderError}">
+                                                    <span>خطأ ! هناك خطأ في نوع الطالب </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="dob"  class="text-right text-blue control-label">تاريخ الميلاد</label>
+                                            </div>
+
+                                            <div class="col-md-9">
+                                                <div class="input-group pull-left text-right ">
+                                                    <input type="text" class="form-control text-right" 
+
+                                                           th:value="${#dates.format(student.dob, 'dd/MM/yyyy')}"
+                                                           name="dob"
+                                                           id="datemask"
+                                                           oninvalid="this.setCustomValidity('من فضلك ادخل تاريخ ميلاد الطالب')"
+                                                           oninput="setCustomValidity('')"
+                                                           required="required" ><!--
+                                                    <!--th:datetime="${dob}" required="required" >-->
+
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar text-blue"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="parentName" class="text-right text-blue control-label">اسم ولي الأمر</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group pull-left text-right ">
+                                                    <input type="text" class="form-control text-right" 
+                                                           id="parentName" placeholder="اسم ولي الامر"
+                                                           name="parentName"
+                                                           th:value="${student.parentName}"
+                                                           oninvalid="this.setCustomValidity('من فضلك ادخل اسم ولي امر الطالب')"
+                                                           oninput="setCustomValidity('')"
+                                                           required="required">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-home text-center text-blue"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="parentPhone" class="text-right text-blue control-label">رقم الهاتف</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group pull-left text-right ">
+                                                    <input type="text" class="form-control text-right" 
+                                                           id="parentPhone" placeholder="رقم الهاتف"
+                                                           name="parentPhone"
+                                                           data-inputmask="'mask': ['999-999-99999', '+099 99-999-99999' ,'999-999-9999']"
+                                                           data-mask 
+                                                           oninvalid="this.setCustomValidity('من فضلك ادخل رقم الهاتف')"
+                                                           oninput="setCustomValidity('')"
+                                                           th:value="${student.parentPhone}"
+                                                           required="required">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone text-blue"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row ">
+
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="classes" class="text-right text-blue control-label">الصف</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group  text-right ">
+                                                    <select th:value="${classes}" id="classes" 
+                                                            name="classes"
+                                                            class="form-control select2"  >
+                                                        <option data-th-each="classes : ${allClasses}" 
+                                                                th:value="${classes.id}"
+                                                                th:text="${classes.name}"></option>
+                                                    </select>
+
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-university text-center text-blue"></i>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="box box-primary ">
+
+                                <div class="box-header with-border">
+
+                                    <h4 class=" text-blue pull-right text-bold">حالة الطالب</h4>
+                                    <div style="margin-left: 45%;">
+                                        <input type="checkbox" 
+                                               class="text-bold"
+                                               data-toggle="toggle"
+                                               data-on="مستجد" 
+                                               data-off="معيد" 
+                                               data-onstyle="success" 
+                                               data-offstyle="danger"
+                                               data-width="100"
+                                               data-height="10"
+                                               th:value="${studentState.newYear}"
+                                               >
+
+                                    </div>
+                                </div>
+                                <div class="box-body ">
+                                    <div class="row ">
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="comeFrom" class="text-right text-blue control-label">محول من</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control text-right" 
+                                                           name="comeFromSchool"
+                                                           th:value="${studentState.comeFromSchool}"
+                                                           placeholder="المدرسة المحول منها الطالب" >
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" class="minimal"
+                                                               name="comeFrom"
+                                                               th:checked="${studentState.comeFrom}">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="sendTo" class="text-right text-blue control-label">محول الي</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group ">
+                                                    <input type="text" class="form-control text-right" 
+                                                           name="sendToSchool"
+                                                           th:value="${studentState.sendToSchool}" 
+                                                           placeholder="المدرسة التي تم التحويل اليها">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" class="minimal"
+                                                               name="sendTo"
+                                                               th:checked="${studentState.sendTo}">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="getOut" class="text-right text-blue control-label">متسرب</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group ">
+
+                                                    <input type="text" class="form-control text-right"
+                                                           name="getOutCause"
+                                                           placeholder="سبب التسرب"
+                                                           th:value="${studentState.getOutCause}" 
+                                                           >
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" class="minimal"
+                                                               name="getOut" th:checked="${studentState.getOut}">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="getOutCure" class="text-right text-blue control-label">العلاج</label> 
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group  ">
+                                                    <input type="text" class="form-control text-right"
+                                                           name="getOutCure"
+                                                           placeholder="علاج التسرب"
+                                                           th:value="${studentState.getOutCure}">
+                                                    <div class="input-group-addon">
+                                                        <span class="fa fa-unlink text-blue" ></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group pull-right">
+                                            <div class="col-md-3 pull-right">
+                                                <label for="divorsed" class="text-right text-blue control-label"> ولي الامر مطلق</label>   
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="input-group ">
+                                                    <input type="text" class="form-control text-right"
+                                                           placeholder="المعيل"
+                                                           name="whoPaid"
+                                                           th:value="${studentState.whoPaid}">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" class="minimal" 
+                                                               name="divorsed"
+                                                               th:checked="${studentState.divorsed}" >
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 form-group text-right">
+                                            <div class=" row row-border">
+                                                <div class="col-sm-3 pull-right">
+                                                    <div class=" form-group text-right">
+                                                        <label for="socialSecure" class="text-right text-blue">ضمان اجتماعي</label>
+                                                        <input type="checkbox" class="minimal"
+                                                               name="socialSecure"
+                                                               th:checked="${studentState.socialSecure}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 pull-right">
+                                                    <div class=" form-group text-right">
+                                                        <label for="parentDied" class="text-right text-blue ">يتيم</label>
+                                                        <input type="checkbox" class="minimal"
+                                                               name="parentDied"
+                                                               th:checked="${studentState.parentDied}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 pull-right">
+                                                    <div class=" form-group text-right">
+                                                        <label for="stoped" class="text-right text-blue">موقوف قيده</label>
+                                                        <input type="checkbox" class="minimal"
+                                                               name="stoped"
+                                                               th:checked="${studentState.stoped}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 pull-right">
+                                                    <div class=" form-group text-right">
+                                                        <label for="graduated" class="text-right text-blue">تخرج</label>
+                                                        <input type="checkbox" class="minimal"
+                                                               name="graduated"
+                                                               th:checked="${studentState.graduated}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="pull-right">
+                                        <a class="btn btn-flat bg-red text-bold" th:href="@{/Student}">إلغـــــــــــــاء</a>
+                                        <button type="submit" class="btn btn-flat bg-light-blue text-bold" >اضف الطالب</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    </form>
+
+                    <!-- /.box -->
+
+                </section>
+
+            </div>
+
+
+
+            <div th:replace="common/footer :: footer"></div>
+
+        </div>
+
+        <!-- ./wrapper -->
+
+        <div th:replace="common/header :: body-bottom-scripts" ></div>
+        <!-- Select2 -->
+        <script th:src="@{/js/select2.full.min.js}"></script>
+        <!-- InputMask -->
+        <script th:src="@{/js/jquery.inputmask.js}"></script>
+        <script th:src="@{/js/plugins/jquery.inputmask.date.extensions.js}"></script>
+        <script th:src="@{/js/plugins/jquery.inputmask.extensions.js}"></script>
+        <!-- Page script -->
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //Datemask dd/mm/yyyy
+                $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'}).datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                })
+
+                //Datemask2 mm/dd/yyyy
+                $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
+                //Money Euro
+                $('[data-mask]').inputmask()
+
+                //Date range picker
+                $('#reservation').daterangepicker()
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'})
+                //Date range as a button
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                })
+
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                })
+                //Red color scheme for iCheck
+                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                    checkboxClass: 'icheckbox_minimal-red',
+                    radioClass: 'iradio_minimal-red'
+                })
+                //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                })
+            })
+        </script>
+        <script th:src="@{/js/bootstrap-toggle.min.js}"></script>
+
+    </body>
+</html>

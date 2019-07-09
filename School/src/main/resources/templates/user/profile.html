@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!--<head th:replace="common/header :: common-header" />-->
+    <head th:replace="common/header :: common-header" />
+
+    <body class="sidebar-mini wysihtml5-supported skin-blue-light">
+        <div class="wrapper rtl">
+
+            <header class="main-header rtl">
+                <div th:replace="common/header :: navbar"></div>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <div th:replace="common/mainSidebar :: sidebar"></div>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <div class="box box-primary">
+                        <div class="box-header text-right">
+                            <h2 class="box-title text-blue">البيانات الشخصية للمستخدم</h2>
+                        </div>
+                        <div class="box-body no-padding">
+                            <form th:action="@{/updateUser}" method="post">
+                                <input hidden="hiddin" name="id" th:value="${user.id}">
+                                <div class="box-body">
+                                    <div class="row ">
+                                        <div class="col-md-6 pull-right">
+                                            <div class="form-group has-feedback">
+                                                <label for="firstName" class="pull-right text-blue">الاسم الأول</label>
+                                                <input type="text" 
+                                                       class="form-control text-right" 
+                                                       id="firstName"
+                                                       name="firstName"
+                                                       th:value="${user.firstName}"
+                                                       placeholder="الاسم الاول"
+                                                       required>
+                                                <span class="glyphicon glyphicon-user form-control-feedback text-blue"></span>
+                                                 <div class="bg-danger text-right" th:if="${fristNameError}">لايمكن ترك الاسم الأول فارغا
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label for="lastName" class="pull-right text-blue">الاسم الأخير</label>
+                                                <input type="text" 
+                                                       class="form-control text-right" 
+                                                       id="lastName"
+                                                       name="lastName"
+                                                       th:value="${user.lastName}"
+                                                       placeholder="الاسم الأخير"
+                                                       required>
+                                                <span class="glyphicon glyphicon-user form-control-feedback text-blue"></span>
+                                                 <div class="bg-danger text-right" th:if="${lastNameError}">لايمكن ترك الاسم الاخير فارغا
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-6 pull-right">
+                                            <div class="form-group has-feedback">
+                                                <label for="phone" class="pull-right text-blue">رقم الهاتف</label>
+                                                <input type="text" 
+                                                       class="form-control text-right" 
+                                                       id="phone"
+                                                       name="phone"
+                                                       th:value="${user.phone}"
+                                                       placeholder="رقم الهاتف"
+                                                       >
+                                                <span class="glyphicon glyphicon-phone form-control-feedback text-blue"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6"></div>
+                                    </div>
+                                    <hr>
+                                    <div class="row ">
+                                        <div class="col-md-6 pull-right">
+                                            <div class="form-group has-feedback">
+                                                <label for="username" class="pull-right text-blue">اسم الدخول</label>
+                                                <input type="text"
+                                                       class="form-control text-right" 
+                                                       id="username"
+                                                       name="username"
+                                                       th:value="${user.username}"
+                                                       placeholder="اسم الدحول"
+                                                       required>
+                                                <span class="glyphicon glyphicon-user form-control-feedback text-blue"></span>
+                                                <div class="bg-danger text-right" th:if="${usernameExists}">هذا الاسم مستخدم من قبل
+                                                </div>
+                                                <div class="bg-danger text-right" th:if="${usernameError}">لايمكن ترك اسم المستخدم فارغا
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label for="email" class="pull-right text-blue text-blue">البريد الالكتروني</label>
+
+                                                <input type="email" 
+                                                       class="form-control text-right"
+                                                       id="email"
+                                                       name="email"
+                                                       th:value="${user.email}"
+                                                       placeholder="البريد الإلكتروني"
+                                                       required>
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback text-blue"></span>
+                                                <div class="bg-danger text-right" th:if="${emailExists}">هذا البريد مستخدم من قبل
+                                                </div>
+                                                <div class="bg-danger text-right" th:if="${emailError}">لايمكن ترك البريد فارغا
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-6 pull-right">
+                                            <div class="form-group has-feedback">
+                                                <label for="password" class="pull-right text-blue">كلمة المرور</label>
+                                                <input type="password" 
+                                                       class="form-control text-right" 
+                                                       th:value="${user.password}"
+                                                       placeholder="كلمة المرور"
+                                                       required>
+                                                <span class="glyphicon glyphicon-lock form-control-feedback text-blue"></span>
+                                                <div class="bg-danger text-right" th:if="${passwordError}">ادخل كلمة المرور اولا
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label for="password" class="pull-right text-blue">تأكيد كلمة المرور</label>
+                                                <input type="password" 
+                                                       class="form-control text-right"
+                                                       id="password"
+                                                       name="password"
+                                                       th:value="${user.password}"
+                                                       placeholder=" كلمة المرور مرة اخري"
+                                                       required>
+                                                <span class="glyphicon glyphicon-log-in form-control-feedback text-blue"></span>
+                                                <div class="bg-danger text-right" th:if="${passwordError}">اكد كلمة المرور 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-xs-8">
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-xs-4">
+                                            <button type="submit" class="btn btn-primary btn-block btn-flat">تحديث البيانات</button>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+                            <!-- /.form-box -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- /.content -->
+
+            </div>
+            <!-- /.content-wrapper -->
+            <!-- /.content -->
+
+            <!-- /.content-wrapper -->
+            <div th:replace="common/footer :: footer"></div>
+
+
+        </div>
+        <!-- ./wrapper -->
+
+
+
+        <div th:replace="common/header :: body-bottom-scripts" ></div>
+
+    </body>
+</html>

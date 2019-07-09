@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head th:replace="common/header :: common-header" />
+
+    <body>
+
+        <div th:replace="common/header :: navbar" />
+
+        <div class="container">
+            <div class="row">
+                <form class="form-horizontal" th:action="@{/item/updateItem}" method="post"
+                      enctype="multipart/form-data">
+                    <fieldset>
+                        <legend class="center-block">Update Item Information 
+                            <span style="font-size: small"> * is a required field</span>
+                            <span  style="font-size: small"> <li><a th:href="@{/item/itemList}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Back to item list</a></li>
+                            </span>
+
+                        </legend>
+                        <input hidden="hiddin" name="id" th:value="${item.id}"></input>
+
+                        <!-- title -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" 
+                                   for="name">* Name</label> <div class="col-md-8">
+                                <input type="text" name="name"
+                                       class="form-control" id="title" th:value="${item.name}"
+                                       required="required" placeholder="item name" /> <span
+                                       class="help-block">Name of the Item</span>
+                            </div>
+                        </div>
+                        <!-- company -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="company">* Company</label> 
+                            <div class="col-md-8">
+                                <input type="text" name="company"
+                                       class="form-control" id="author" th:value="${item.company}"
+                                       required="required" placeholder="Company" /> <span
+                                       class="help-block">company of the Item</span>
+                            </div>
+                        </div>
+                        <!-- category -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="category">
+                                * Category</label>
+                            <div class="col-md-8">
+                                <select th:value="${item.category}" id="category" name="category"
+                                        class="form-control">
+                                    <option value="" selected="selected" disabled="disabled">Please
+                                        select an option...
+                                    </option>
+                                    <option value="Management"
+                                            th:selected="(${item.category}=='Management')">Management
+                                    </option>
+                                    <option value="Fiction"
+                                            th:selected="(${item.category}=='Fiction')">Fiction
+                                    </option>
+                                    <option value="Engineering"
+                                            th:selected="(${item.category}=='Engineering')">Engineering
+                                    </option>
+                                    <option value="Programming"
+                                            th:selected="(${item.category}=='Programming')">Programming
+                                    </option>
+                                    <option value="Arts &amp; Literature"
+                                            th:selected="(${item.category}=='Arts &amp; Literature')">Arts
+                                        &amp; Literature
+                                    </option>
+
+                                </select>
+                                <span class="help-block">Category of the Item</span>
+                            </div>
+                        </div>
+                        <!-- in stock number -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="inStockNumber">Number in stock</label>
+                            <div class="col-md-8">
+                                <input th:value="${item.inStockNumber}" type="number" name="inStockNumber"
+                                       class="form-control" id="inStockNumber"
+                                       placeholder="Number of in-stock copies" />
+                                <span class="help-block">Number of in-stock</span>
+                            </div>
+                        </div>
+                        <!-- shipping weight -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="shippingWeight">Shipping
+                                Weight</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input th:value="${item.shippingWeight}" type="number" name="shippingWeight"
+                                           min="0.0"
+                                           class="form-control" id="shippingWeight"
+                                           placeholder="Shipping Weight" />
+                                    <span class="input-group-addon">Ounces</span>
+                                </div>
+                                <span class="help-block">Shipping Weight of the Item</span>
+                            </div>
+                        </div>
+                        <!-- list price -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="listPrice">List Price</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input th:value="${item.listPrice}" type="number" name="listPrice"
+                                           min="0.0" step="0.01"
+                                           class="form-control" id="listPrice"
+                                           placeholder="List Price" />
+                                </div>
+                                <span class="help-block">List price of the Item</span>
+                            </div>
+                        </div>
+                        <!-- our price -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="ourPrice">Our Price</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input th:value="${item.ourPrice}" type="number" name="ourPrice"
+                                           min="0.0" step="0.01"
+                                           class="form-control" id="ourPrice"
+                                           placeholder="Our Price" />
+                                </div>
+                                <span class="help-block">Our price of the Item</span>
+                            </div>
+                        </div>
+                        <!-- status of Item -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="status">Status</label>
+                            <div class="col-md-8">
+                                <label><input value="true" type="radio" name="active" checked="checked"
+
+                                              /> Active </label>
+                                <label><input value="false" type="radio" name="active"
+
+                                              /> Inactive </label>
+                                <span class="help-block">Whether the Item is active or inactive</span>
+                            </div>
+                        </div>
+                        <!-- upload image -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="itemImage">Upload Item image</label>
+                            <div class="col-md-8">
+
+                                <input id="itemImage" type="file" name="itemImage" max-size="1048576"
+                                       th:value="${item.itemImage}" />
+
+                            </div>
+                        </div>
+                        <!-- publication date -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="publicationDate">Publication Date
+                            </label>
+                            <div class="col-md-8">
+                                <input
+                                    type="date" class="form-control" id="publicationDate" name="publicationDate"
+                                    th:value="${item.publicationDate}" placeholder="publication Date" />
+                                <span class="help-block">Publication Date of the Item</span>
+                            </div> 
+                        </div> 
+                        <!-- description -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="description">Description</label> 
+                            <div class="col-md-8">
+                                <textarea name="description" rows="5"
+                                          class="form-control" id="description" th:value="${item.description}"
+                                          th:text="${item.description}"
+
+                                          placeholder="Description" >
+
+                                </textarea> 
+                                <span class="help-block">Description of the Item</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-success">Update Item</button>
+                                <a class="btn btn-danger" th:href="@{/item/itemInfo(id=${item.id})}">Cancel</a>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>  
+
+        <div th:replace="common/header :: body-bottom-scripts" />
+    </body>
+</html>

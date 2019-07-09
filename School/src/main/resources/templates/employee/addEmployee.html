@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!--<head th:replace="common/header :: common-header" />-->
+    <head th:replace="common/header :: common-header" />
+    <!--     <body class="sidebar-mini wysihtml5-supported skin-blue-light">-->
+    <body class="sidebar-mini wysihtml5-supported skin-blue-light">
+        <div class="wrapper rtl">
+
+            <header class="main-header">
+                <div th:replace="common/header :: navbar"></div>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <div th:replace="common/mainSidebar :: sidebar"></div>
+            
+            <div class="content-wrapper" >
+                <!-- Main content -->
+                <section class="content"> 
+                    <div class="box box-primary">
+                        <div class="box-header with-border text-right">
+                            <h3 class="text-blue">إضافة موظف</h3>
+
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form  th:action="@{/Employee/addEmployee}" method="post"
+                               enctype="multipart/form-data">
+
+                            <div class="box-body">
+
+
+
+                                <div class="row ">
+
+                                    <div class="col-lg-6 form-group text-right pull-right">
+                                        <label for="name" text-right>اسم الموظف</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control text-right" 
+                                                   id="employeeName" placeholder="اسم الموظف"
+                                                   name="employeeName"
+                                                   th:value="${employee.employeeName}"required="required">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-user text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 form-group text-right pull-right">
+                                        <label for="job" text-right>الوظيفة</label>
+                                        <select th:value="${job}" id="job" 
+                                                name="job"
+                                                class="form-control select2"  >
+                                            <option data-th-each="job : ${allJobs}" 
+                                                    th:value="${job.id}"
+                                                    th:text="${job.jobTitle}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-lg-3 form-group text-right pull-right">
+
+                                        <label for="degree1" text-right>الدرجة الحالية</label>
+                                        <select  id="degree1" 
+                                                 name="degree1"
+                                                 class="form-control select2"  >
+                                            <option data-th-each="degree : ${allDegrees}" 
+                                                    th:value="${degree.id}"
+                                                    th:text="${degree.degreeName}"></option>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <!--data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""-->
+                                        <label for="dateOfWorkingCurrentDegree" text-right>تاريخ الدرجة الحالية</label>
+                                        <div class="input-group text-right">
+                                            <input type="text" class="form-control text-right" 
+                                                   data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                                                   name="dateOfWorkingCurrentDegree"
+                                                   th:datetime="${dateOfWorkingCurrentDegree}" required="required" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 form-group text-right pull-right">
+
+                                        <label for="degree2" text-right>الدرجة السابقة</label>
+                                        <select  id="degree2" 
+                                                 name="degree2"
+                                                 class="form-control select2"  >
+                                            <option data-th-each="degree : ${allDegrees}" 
+                                                    th:value="${degree.id}"
+                                                    th:text="${degree.degreeName}"></option>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <!--data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""-->
+                                        <label for="dateOfWorkingExDegree" text-right>تاريخ الدرجة السابقة</label>
+                                        <div class="input-group text-right">
+                                            <input type="text" class="form-control text-right" 
+                                                   data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                                                   name="dateOfWorkingExDegree"
+                                                   th:datetime="${dateOfWorkingExDegree}" required="required" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row ">
+                                    <div class="col-lg-3 form-group text-right pull-right">
+
+                                        <label for="qualification" text-right>المؤهل الدراسي</label>
+                                        <select  id="qualification" 
+                                                 name="qualification"
+                                                 class="form-control select2"  >
+                                            <option data-th-each="qualification : ${allQualifications}" 
+                                                    th:value="${qualification.id}"
+                                                    th:text="${qualification.qualificationTitle}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <!--data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""-->
+                                        <label for="qualificationDate" text-right>تاريخه</label>
+                                        <div class="input-group text-right">
+                                            <input type="text" class="form-control text-right" 
+                                                   data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                                                   name="qualificationDate"
+                                                   th:datetime="${qualificationDate}" required="required" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <label for="spicial" text-right>التخصص</label>
+                                        <select  id="spicial" 
+                                                 name="spicial"
+                                                 class="form-control select2" >
+                                            <option data-th-each="spicial : ${allSpicials}" 
+                                                    th:value="${spicial.id}"
+                                                    th:text="${spicial.spicialTitle}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6 form-group text-right pull-right">
+                                        <label for="selectedSubject" class="text-right">المسند إليه</label>
+                                        <div class="input-group">
+                                            <select class="form-control select2 pull-right text-right"
+                                                    multiple="multiple" 
+                                                    name="subjects"
+                                                    th:object="${employee.subjects}"
+                                                    data-placeholder="اختر المسند إليه من المواد">
+                                                <option class=" pull-right text-right" data-th-each="subject : ${allSubjects}" 
+                                                        th:value="${{subject.id}}"
+                                                        th:text="${subject.subjectTitle}"></option>
+                                            </select>
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-language text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <!--data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""-->
+                                        <label for="dateOfBirth" text-right>تاريخ الميلاد</label>
+                                        <div class="input-group text-right">
+                                            <input type="text" class="form-control text-right" 
+                                                   data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                                                   name="dateOfBirth"
+                                                   th:datetime="${dateOfBirth}" required="required" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <!--data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""-->
+                                        <label for="dateOfWorking" text-right>تاريخ الاشتغال</label>
+                                        <div class="input-group text-right">
+                                            <input type="text" class="form-control text-right" 
+                                                   data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                                                   name="dateOfWorking"
+                                                   th:datetime="${dateOfWorking}" required="required" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 form-group text-right pull-right">
+                                        <!--data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""-->
+                                        <label for="dateOfAttending" text-right>تاريخ استلام العمل</label>
+                                        <div class="input-group text-right">
+                                            <input type="text" class="form-control text-right" 
+                                                   data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""
+                                                   name="dateOfAttending"
+                                                   th:datetime="${dateOfAttending}" required="required" >
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 form-group text-right pull-right">
+                                        <label for="employeeAddress" text-right>العنوان</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control text-right" 
+                                                   id="employeeAddress" placeholder="العنوان"
+                                                   name="employeeAddress"
+                                                   th:value="${employee.employeeAddress}"required="required">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-address-book text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 form-group text-right pull-center">
+                                        <label for="phone" text-right>رقم الهاتف</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control text-right" 
+                                                   id="parentPhone" placeholder="رقم الهاتف"
+                                                   name="phone"
+                                                   data-inputmask="'mask': ['999-999-99999', '+099 99-999-99999' ,'999-999-9999']" data-mask
+
+                                                   th:value="${employee.phone}"required="required">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-phone text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 form-group text-right pull-center">
+                                        <label for="phone" text-right>الرقم القومي</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control text-right" 
+                                                   id="nationalID" placeholder="الرقم القومي"
+                                                   name="nationalID"
+                                                   data-inputmask="'mask': ['9-99-99-99-9999999']" data-mask
+
+                                                   th:value="${employee.nationalID}"required="required">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-id-card text-blue"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="box-footer pull-right">
+                                    <a class="btn btn-danger" th:href="@{/Employee/}">إلغـــــــــــــاء</a>
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">اضف الموظف</button>
+                                    <div class="modal modal-info fade" id="modal-info">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title pull-center">رسالة تأكيد</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>هل انت متأكد من حفظ البيانات ؟&hellip;</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">اغلاق</button>
+                                                    <button type="submit" class="btn btn-outline">حفظ</button>
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <!-- /.content -->
+
+                </section>
+
+            </div>
+
+
+
+            <div th:replace="common/footer :: footer"></div>
+
+        </div>
+
+
+
+
+        <div th:replace="common/header :: body-bottom-scripts" ></div>
+        <!-- Select2 -->
+        <script th:src="@{/js/select2.full.min.js}"></script>
+        <!-- InputMask -->
+        <script th:src="@{/js/jquery.inputmask.js}"></script>
+        <script th:src="@{/js/plugins/jquery.inputmask.date.extensions.js}"></script>
+        <script th:src="@{/js/plugins/jquery.inputmask.extensions.js}"></script>
+        <!-- Page script -->
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                //Datemask dd/mm/yyyy
+                $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'}).datepicker({
+                    autoclose: true,
+                    format: 'dd/mm/yyyy'
+                })
+                //Datemask2 mm/dd/yyyy
+                $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
+                //Money Euro
+                $('[data-mask]').inputmask()
+
+                //Date range picker
+                $('#reservation').daterangepicker()
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'})
+                //Date range as a button
+                $('#daterange-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                            },
+                            startDate: moment().subtract(29, 'days'),
+                            endDate: moment()
+                        },
+                        function (start, end) {
+                            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                        }
+                )
+
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                })
+
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                })
+                //Red color scheme for iCheck
+                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                    checkboxClass: 'icheckbox_minimal-red',
+                    radioClass: 'iradio_minimal-red'
+                })
+                //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                })
+
+                //Colorpicker
+                $('.my-colorpicker1').colorpicker()
+                //color picker with addon
+                $('.my-colorpicker2').colorpicker()
+
+                //Timepicker
+                $('.timepicker').timepicker({
+                    showInputs: false
+                })
+            })
+
+        </script>
+
+    </body>
+</html>

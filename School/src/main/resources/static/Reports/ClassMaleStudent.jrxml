@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClassMaleStudent" pageWidth="265" pageHeight="802" columnWidth="265" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="80ffa415-449b-40a6-bffb-22110f6a0cf7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ClassesID" class="java.lang.Long" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT student.name as studentName, classes.name as className , student.gender , student_state.new_year  FROM 
+classes inner join student on student.classes_id = classes.id 
+inner join student_state on student.student_state_state_id = student_state.state_id 
+where 
+student.gender =0 and student_state.graduated = false and classes.id = $P{ClassesID} order by  studentName ASC;]]>
+	</queryString>
+	<field name="studentName" class="java.lang.String"/>
+	<field name="className" class="java.lang.String"/>
+	<field name="gender" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="new_year" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="variable1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{studentName}]]></variableExpression>
+	</variable>
+	<group name="className">
+		<groupExpression><![CDATA[$F{className}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<textField>
+				<reportElement x="85" y="0" width="160" height="20" uuid="0422edad-e719-48c0-af6e-e07e9f8db1b5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{studentName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="85" height="20" uuid="07ef0384-d757-4830-9924-d3a085bce426"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{new_year} == true ? "مستجد" : "معيد"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="0" width="20" height="20" uuid="3af63eec-4219-4e50-ad88-16e4e3d8e936"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{variable1})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

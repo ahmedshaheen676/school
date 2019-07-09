@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SchoolBudget" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="41c9ffb6-944f-4f41-ba78-917b570fc1ab">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="230"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select classes.`name` As className ,
+COUNT(IF(student.gender='0',0, NULL)) As MaleStudent ,
+COUNT(IF(student.gender='1',0, NULL)) As FmaleStudent,
+( COUNT(IF(student.gender='0',1, NULL)) + COUNT(IF(student.gender='1',1, NULL)) ) As total
+from classes inner join student on student.classes_id = classes.id
+inner join student_state on student.student_state_state_id = student_state.state_id
+where 
+student_state.graduated = false
+group by className 
+order by className
+]]>
+	</queryString>
+	<field name="className" class="java.lang.String"/>
+	<field name="MaleStudent" class="java.lang.Long"/>
+	<field name="FmaleStudent" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+	<variable name="variable1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{className}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totMale" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{MaleStudent}]]></variableExpression>
+	</variable>
+	<variable name="totFmale" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{FmaleStudent}]]></variableExpression>
+	</variable>
+	<variable name="totAll" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="0" width="553" height="802" uuid="2fc3c1a6-78a0-431b-adef-4d594cd81ca1"/>
+				<box>
+					<pen lineWidth="10.0" lineStyle="Double"/>
+					<topPen lineWidth="10.0" lineStyle="Double"/>
+					<leftPen lineWidth="10.0" lineStyle="Double"/>
+					<bottomPen lineWidth="10.0" lineStyle="Double"/>
+					<rightPen lineWidth="10.0" lineStyle="Double"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="11" width="112" height="15" uuid="83e423a4-dd59-4dee-98fa-5273699857f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الإدارة التعليمية بمنية النصر]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="26" width="100" height="30" uuid="f0defed2-1756-4b46-bb54-77010414f7ed"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مدرية التربية والتعليم بالدقهلية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="56" width="112" height="15" uuid="1dfbf4a4-9165-40fd-b1ba-b35db3eeb9de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[شئون طلاب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="26" width="112" height="30" uuid="fda2c04c-ac80-4684-9b87-a85cfc98adae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مدرسة محمود الشناوي بالحميدية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="36" width="151" height="28" uuid="62b1e939-9426-4871-8700-6d28dc67ea9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ميزانية المدرسة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="11" width="100" height="15" uuid="ae0cbcb0-3cfe-4e5e-8b5a-0a0069dc1060"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[وزارة التربية والتعليم]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="376" y="0" width="144" height="20" backcolor="#CCCCCC" uuid="8ba09786-5aa5-4e46-85da-48805f93bf52"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الصف]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="254" y="0" width="122" height="20" backcolor="#CCCCCC" uuid="958ed5d6-532b-459e-85d5-51dd6a0c4763"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الطلاب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="132" y="0" width="122" height="20" backcolor="#CCCCCC" uuid="3f6f62bd-2269-49c6-a40f-0818fe3b621a"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الطالبات]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="10" y="0" width="122" height="20" backcolor="#CCCCCC" uuid="91190659-57f7-4e8d-9c8a-a46bc8d07214"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الاجمالي]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="520" y="0" width="20" height="20" backcolor="#CCCCCC" uuid="7ba26908-d3d1-4554-8917-e95801e428f8"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[م]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="376" y="0" width="144" height="20" uuid="2082db5e-c636-4f61-b33e-01a982a06b09"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$F{className})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="0" width="122" height="20" uuid="089bda4b-a9d5-47b1-824f-8fc9a0823645"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$F{MaleStudent})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="132" y="0" width="122" height="20" uuid="ffaf6dff-8147-4bdb-a46b-2c344f94d5e2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$F{FmaleStudent})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="122" height="20" uuid="3a4eb455-f15e-4768-83ff-956f517e3aa1"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$F{total})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToBandHeight" x="520" y="0" width="20" height="20" uuid="c7751ad1-7571-46b6-96a3-aab20a2ebae3"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{variable1})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="254" y="0" width="122" height="20" backcolor="#CCCCCC" uuid="db3202e2-f33a-4505-8d52-5509c715bf1e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{totMale})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="376" y="0" width="164" height="20" backcolor="#CCCCCC" uuid="f975b8c7-e142-4879-ac95-ec18cca62375"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الاجمالي]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="132" y="0" width="122" height="20" backcolor="#CCCCCC" uuid="2243a50e-d0b2-493e-9915-6dc06d023a4f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{totFmale})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="10" y="0" width="122" height="20" backcolor="#CCCCCC" uuid="5af1901b-9b5a-4196-a4ef-7999e746ea5d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{totAll})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="194" y="81" width="215" height="19" uuid="4948a121-1b2e-4276-a7b5-0a74a9abff50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[فريق LTS لصناعة البرمجيات  : 01061510304]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="0" width="100" height="20" uuid="fd806135-659e-4a55-8a9c-7a3a3148f5bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ المختص]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="0" width="100" height="47" uuid="e3e21699-e8d2-49fa-b57e-9a52a20a62da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[يعتمد ؛؛
+مدير المدرسة]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="234" y="100" width="20" height="20" uuid="ee02824f-198d-4f19-90e5-6772fa4fac7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + (new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{PAGE_NUMBER})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="100" width="80" height="20" uuid="005ea24d-d0a4-46c7-8f7e-45c8d654d72b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["صفحة "+(new arabic.ArabicNumbers()).convertEnglishToArabic(""+$V{PAGE_NUMBER})+" من"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="2" y="100" width="100" height="20" uuid="3bfae714-c557-4a26-b5e8-2d1f7026f01b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm.ss">
+				<reportElement x="102" y="100" width="100" height="20" uuid="27fe05c9-d870-429c-be2e-2ddb2d5904af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

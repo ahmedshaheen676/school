@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head th:replace="common/header :: common-header" />
+    <body class="sidebar-mini wysihtml5-supported skin-blue-light">
+        <div class="wrapper rtl">
+
+            <header class="main-header">
+                <div th:replace="common/header :: navbar"></div>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <div th:replace="common/mainSidebar :: sidebar"></div>
+
+            <div class="content-wrapper" >
+                <!-- Main content -->
+                <section class="content"> 
+                    <div class="box box-primary">
+                        <div class="box-header with-border text-right">
+                            <h2 class="box-title">بيانات التخصصات</h2>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body  no-padding">
+                            <!--<table class="table table-hover text-center ">-->
+                            <table id="example2" class="table table-hover text-center table-bordered table-striped">
+                                <thead><tr>
+
+                                        <th>عدد العاملين به</th>
+                                        <th> عنوان التخصص</th>
+                                    </tr></thead>
+                                <tbody>
+                                    <tr data-th-each="spicial : ${allSpicials}" >
+
+                                        <td th:text="${spicial.employees.size()}"></td>
+
+                                        <td ><a th:href="@{/Spicial/updateSpicial(id=${spicial.id})}">
+                                                <span th:text="${spicial.spicialTitle}"></span></a>
+                                        </td>
+                                    </tr>
+
+                                </tbody></table>
+                        </div>
+                        <!-- /.box-body -->
+                </section>
+
+            </div>
+
+
+
+            <div th:replace="common/footer :: footer"></div>
+
+        </div>
+
+
+        <div th:replace="common/header :: body-bottom-scripts" ></div>
+        <script>
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': true,
+                'ordering': true,
+                'info': false,
+                'autoWidth': true,
+                'stateSave': true,
+
+            })
+
+        </script>
+
+    </body>
+</html>

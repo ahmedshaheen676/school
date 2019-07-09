@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+
+    <aside th:fragment="sidebar" class="main-sidebar fixed " >
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar " id="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel text-right " sec:authorize="isAuthenticated()">
+                <div class="pull-right image">
+                    <img th:src="@{/image/users/user2-160x160.jpg}" class="img-circle" >
+                </div>
+                <div class="pull-left info">
+                    <p th:text="${user.firstName} + ' ' +  ${user.lastName}"></p>
+
+                    <a><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group text-right pull-right">
+                    <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat pull-left"><i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                    <input type="text" name="q" class="form-control pull-right text-right" placeholder="... ابحث">
+
+                </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu tree " data-widget="tree" >
+                <!--<li class="header">MAIN NAVIGATION</li>-->
+
+                <li class="treeview">
+                    <a th:href="@{/Class}">
+                        <i class="fa  fa-university"></i> <span class="text-blue">الصفوف</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a th:href="@{/Class}"><i class="fa fa-hospital-o text-yellow"></i> عرض الصفوف</a></li>
+<!--                        <li><a th:href="@{/Class/addClass}" sec:authorize="isAuthenticated()"><i class="fa fa-plus-square text-red"></i> إضافة صف</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> تعديل الأخبار</a></li>-->
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a th:href="@{/Student}">
+                        <i class="fa fa-book"></i> <span class="text-blue">الطلاب</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right "></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a th:href="@{/Student}"><i class="fa fa-book text-yellow"></i> جميع الطلاب</a></li>
+                        <li><a th:href="@{/Student/addStudent}" sec:authorize="isAuthenticated()"><i class="fa fa-plus-square text-red"></i> إضافة طالب</a></li>
+                        <li class="treeview">
+                        <li class="treeview" sec:authorize="isAuthenticated()">
+                            <a href="#"><i class="fa fa-bar-chart"></i> تقارير الطلاب
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/Student/comeFrom}"><i class="fa fa-reply text-success"></i> المحولون من مدارس اخري</a></li>
+                                <li><a th:href="@{/Student/sendTo}"><i class="fa fa-reply-all text-warning"></i> المحولون الي مدراس اخري</a></li>
+                                <li><a th:href="@{/Student/getOut}"><i class="fa fa-outdent text-red"></i> المتسربون</a></li>
+                                <li><a th:href="@{/Student/divorsed}"><i class="fa fa-angle-double-down text-blue" ></i> ولي الأمر مطلق</a></li>
+                                <li><a th:href="@{/Student/socialSecure}"><i class="fa fa-address-card text-green"></i> الضمان الاجتماعي</a></li>
+                                <li><a th:href="@{/Student/parentDied}"><i class="fa fa-yelp text-aqua"></i> الأيتام</a></li>
+                                <li><a th:href="@{/Student/stoped}"><i class="fa fa-stop-circle text-gray"></i> موقوف قيده</a></li>
+                                <li><a th:href="@{/Student/graduated}"><i class="fa fa-graduation-cap text-info"></i> الخريجين</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a th:href="@{/}">
+                        <i class="fa  fa-university"></i> <span class="text-blue">هيئة المدرسة</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+
+                        <li class="treeview">
+                        <li class="treeview" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/Employee}"><i class="fa fa-circle-o"></i> الموظفين
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/Employee}"><i class="fa fa-circle-o"></i> عرض الموظفين</a></li>
+                                <li><a th:href="@{/Employee/addEmployee}"><i class="fa fa-circle-o"></i> اضافة موظف</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/Job/}"><i class="fa fa-circle-o"></i> الوظائف
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/Job/}"><i class="fa fa-circle-o"></i> عرض الوظائف</a></li>
+                                <li><a th:href="@{/Job/addJob}"><i class="fa fa-circle-o"></i> اضافة وظيفة</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/Degree/}"><i class="fa fa-circle-o"></i>الدرجات الوظيفية
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/Degree/}"><i class="fa fa-circle-o"></i> عرض الدرجات</a></li>
+                                <li><a th:href="@{/Degree/addDegree}"><i class="fa fa-circle-o"></i> اضافة درجة</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/Qualification/}"><i class="fa fa-circle-o"></i>المؤهلات الدراسية
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/Qualification/}"><i class="fa fa-circle-o"></i> عرض المؤهلات</a></li>
+                                <li><a th:href="@{/Qualification/addQualification}"><i class="fa fa-circle-o"></i> اضافة مؤهل دراسي</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="treeview" sec:authorize="isAuthenticated()">
+                            <a th:href="@{/Spicial/}"><i class="fa fa-circle-o"></i>التخصصات الوظيفية
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/Spicial/}"><i class="fa fa-circle-o"></i> عرض التخصصات</a></li>
+                                <li><a th:href="@{/Spicial/addSpicial}"><i class="fa fa-circle-o"></i> اضافة تخصص وظيفي</a></li>
+
+                            </ul>
+                        </li>
+
+
+                    </ul>
+
+                </li>
+
+                <li class="treeview" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/Subject/}">
+                        <i class="fa  fa-newspaper-o"></i> <span class="text-blue">المواد الدراسية</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a th:href="@{/Subject/}"><i class="fa fa-circle-o"></i> عرض المواد الدراسية</a></li>
+                        <li><a th:href="@{/Subject/addSubject}"><i class="fa fa-circle-o"></i> اضافة مادة دراسية</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+
+</html>

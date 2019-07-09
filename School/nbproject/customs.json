@@ -1,0 +1,17 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:text": {},
+        "th:if": {},
+        "th:checked": {
+            "context": "input"
+        },
+        "th:action": {},
+        "th:src": {},
+        "th:replace": {},
+        "th:href": {},
+        "th:each": {},
+        "th:value": {},
+        "th:selected": {}
+    }
+}

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head th:replace="common/header :: common-header" ></head>
+
+    <body>
+
+        <div th:replace="common/header :: navbar" ></div>
+        <div class="container">
+            <div>
+                <ol class="breadcrumb">
+                    <li><a th:href="@{/item/itemList}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Go Back</a></li>
+                    <li><a th:href="@{/item/updateItem?id=}+${item.id}">Edit</a></li>
+                </ol>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <img th:src="@{/image/items/}+${item.id} +'.png'" class="img-responsive center-block" 
+                                 th:title="${item.name}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <h3 th:text="${item.name}"></h3>
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p><strong>Name : </strong><span th:text="${item.name}"></span></p>
+                            <p><strong>Company : </strong><span th:text="${item.company}"></span></p>
+                            <p><strong>Category : </strong><span th:text="${item.category}"></span></p>
+                            <p><strong>Number In Stock : </strong><span th:text="${item.inStockNumber}"></span></p>
+                            <p><strong>Shipping Weight : </strong><span th:text="${item.shippingWeight}"></span></p>
+
+                        </div>
+                        <div class="col-xs-6">
+                            <p><strong>List Price : </strong><span th:text="${item.listPrice}"></span></p>
+                            <p><strong>Our Price : </strong><span th:text="${item.ourPrice}"></span></p>
+                            <p><strong>Shipping Weight : </strong><span th:text="${item.shippingWeight}"></span></p>
+                            <p><strong>Publication Date : </strong><span th:text="${item.publicationDate}"></span></p>
+                        </div>
+                    </div>
+                    <p><strong>Description : </strong><span th:utext="${item.description}"></span></p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div th:replace="common/header :: body-bottom-scripts" ></div>
+    </body>
+</html>
